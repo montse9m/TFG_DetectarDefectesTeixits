@@ -7,7 +7,7 @@ from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.inception_v3 import preprocess_input
 
-st.set_page_config(page_title="Classificador de Defectes", layout="centered")
+st.set_page_config(page_title="Detecció de defectes en teixits", layout="centered")
 
 MODEL_PATH = 'model_inceptionv3_50.h5'
 IMG_SIZE = (299, 299)
@@ -42,7 +42,7 @@ def classifica_i_guarda(img_np, original_img, prefix="captura"):
     return classe, pred, ruta
 
 
-st.title("Classificador de defectes")
+st.title("Detecció de defectes en teixits")
 
 mode = st.radio("Selecciona el mode:", ("Adjuntar imatge", "Capturar amb càmera"))
 
@@ -75,7 +75,7 @@ elif mode == "Capturar amb càmera":
                     break
 
                 img_model = preprocessa_img(frame)
-                classe, conf, path = classifica_i_guarda(img_model, frame, "camera")
+                classe, conf, path = classifica_i_guarda(img_model, frame, "càmera")
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 frame_placeholder.image(frame_rgb, caption=f"Predicció: {classe.upper()} ({conf:.2f})", channels="RGB")
                 time.sleep(5)
